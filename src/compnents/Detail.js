@@ -9,17 +9,7 @@ const ItemDetail = () => {
   const items = useSelector(state => state.items);
   const item = items.find(item => item.id === parseInt(id, 10));
 
-  let [showDetails, setShowDetails] = useState(false);
-
-  const handleDetailsClick = (event) => {
-    event.preventDefault();
-    setShowDetails(true);
-  };
-
-  const handleUserInfoClick = (event) => {
-    event.preventDefault();
-    setShowDetails(false);
-  };
+  let [showDetails, setShowDetails] = useState(true);
 
   if (!item) {
     return <div className="detail-container">Item not found</div>;
@@ -37,18 +27,18 @@ const ItemDetail = () => {
       </nav>
       <div>
         <div className='display-container'>
-          <img src={item.imgSrc} alt={`Item ${item.id}`} />
+          <img style={{width: 300}} src={item.imgSrc} alt={`Item ${item.id}`} />
           <div className='info-container'>
             <div className='button-container'>
-              <button onClick={handleDetailsClick} className="details-btn">details</button>
-              <button onClick={handleUserInfoClick} className="userInfo-btn">userInfo</button>
+              <button onClick={()=> setShowDetails(true)} className="details-btn">details</button>
+              <button onClick={()=> setShowDetails(false)} className="userInfo-btn">userInfo</button>
             </div>
             <div className='info'>
-                {{showDetails} ? (
+                {showDetails ? (
                     <div>
                       <p>{item.body}</p>
                     </div>
-                ):(
+                ) : (
                     <div>
                       <p>Post was posted by {item.userId}</p>
                     </div>
